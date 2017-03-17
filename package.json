@@ -1,0 +1,26 @@
+{
+  "name": "graphql-validation-helper",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "build": "tscomp build",
+    "watch": "tscomp watch",
+    "test": "tscomp test",
+    "prepublish": "npm run build"
+  },
+  "repository": "https://github.com/beanloop/graphql-validation-helper.git",
+  "author": "Beanloop AB",
+  "license": "MIT",
+  "devDependencies": {
+    "tscomp": "^0.9.1-dev3",
+    "tslint": "^4.0.2",
+    "tslint-config-beanloop": "^0.1.0"
+  },
+  "dependencies": {
+    "apollo-client": "^1.0.0-rc.2",
+    "react-apollo": "^1.0.0-rc.2",
+    "react-form-helper": "^0.4.2",
+    "recompose": "^0.22.0"
+  }
+}
