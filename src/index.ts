@@ -59,7 +59,7 @@ export function validatedMutation(
 
           return mutate({
             variables: mapVariables ? mapVariables(object, name, ownProps) : {[name]: object},
-            update: update ? update(ownProps) : undefined,
+            update: update && update(ownProps),
           })
             .then(data => onSave ? onSave(data, ownProps) : data)
             .catch(error => {
