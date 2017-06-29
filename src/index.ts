@@ -1,4 +1,4 @@
-import {MutationQueryReducersMap} from 'apollo-client'
+import {DataProxy} from 'apollo-client/data/proxy'
 import {DocumentNode} from 'graphql'
 import {graphql} from 'react-apollo'
 import {FieldConfig} from 'react-form-helper'
@@ -8,7 +8,7 @@ import withState from 'recompose/withState'
 import {isArrayEqual, removeTypename, startsWith, trimArrayLeft, validationErrorHandler} from './helpers'
 
 export type Properties = {
-  updateQueries?: MutationQueryReducersMap
+  update?: (ownProps: any) => (proxy: DataProxy, obj: any) => any
   saveName?: string
   mapVariables?: (object: any, name: string, ownProps: any) => {}
 }
@@ -48,7 +48,7 @@ export type Properties = {
  */
 export function validatedMutation(
   name: string, query: DocumentNode,
-  {updateQueries, saveName = 'save', mapVariables}: Properties
+  {update, saveName = 'save', mapVariables}: Properties
 ) {
   return compose(
     withState('validationError', 'setValidationError', null),
@@ -59,7 +59,7 @@ export function validatedMutation(
 
           return mutate({
             variables: mapVariables ? mapVariables(object, name, ownProps) : {[name]: object},
-            updateQueries,
+            update: update && update(ownProps),
           })
             .then(data => onSave ? onSave(data, ownProps) : data)
             .catch(error => {
